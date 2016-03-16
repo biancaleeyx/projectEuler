@@ -24,7 +24,6 @@ for m in range(len(factors)):
 
 # Calculate LCM, output.
 lcm = 1
-print(factors)
 for factor in factors:
     if factor != 0:
         lcm *= factor
