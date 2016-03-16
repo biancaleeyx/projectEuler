@@ -44,16 +44,14 @@ for s in string:
 digitsMax = numberList[0:digitNum]
 productMax = 1
 for m in digitsMax:
-    if m != 0:
-        productMax *= m
+    productMax *= m
 
 for i in range(1, len(numberList)-digitNum):
     # Parse adjacent digits.
     digitsTmp = numberList[i:i+digitNum]
     productTmp = 1
     for tmp in digitsTmp:
-        if tmp != 0:
-            productTmp *= tmp
+        productTmp *= tmp
 
     # Compare to see which product is larger.
     if productTmp > productMax:
@@ -62,7 +60,4 @@ for i in range(1, len(numberList)-digitNum):
         productMax = copy.deepcopy(productTmp)
 
 # Output resultant largest product as continuous int.
-stringMax = ''
-for m in digitsMax:
-    stringMax += str(m)
-print(int(stringMax))
+print(productMax)
