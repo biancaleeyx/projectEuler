@@ -40,27 +40,41 @@ numberList = []
 for s in string:
     numberList.append(int(s))
 
-# Initialise first adjacent string of digits, and its product.
-digitsA = numberList[0:digitNum]
-productA = 1
-for a in digitsA:
-    productA *= a
+# Initialise maximum product for line as variable.
+lineProduct = 0
 
-for i in range(1, len(numberList)):
-    # Parse adjacent digits.
-    digitsB = numberList[i:i+digitNum]
-    productB = 1
-    for b in digitsB:
-        productB *= b
+# Parse through each line of 50 digits each.
+lineLength = 50
+for i in range(len(numberList) // lineLength):
+    line = numberList[lineLength*i:lineLength*(i+1)]
 
-    # Compare to see which product is larger.
-    if productB > productA:
+    # Initialise first adjacent string of digits, and its product.
+    digitsA = line[0:digitNum]
+    productA = 1
+    for a in digitsA:
+        productA *= a
+
+    for i in range(1, len(line)):
+        # Parse adjacent digits.
+        digitsB = line[i:i+digitNum]
+        productB = 1
+        for b in digitsB:
+            productB *= b
+
+        # Compare to see which product is larger.
+        if productB > productA:
+            # If larger, replace A digits and products for future comparison.
+            digitsA = copy.deepcopy(digitsB)
+            productA = copy.deepcopy(productB)
+
+    # Compare products of line.
+    if productA > lineProduct:
         # If larger, replace A digits and products for future comparison.
-        digitsA = copy.deepcopy(digitsB)
-        productA = copy.deepcopy(productB)
+        lineDigits = copy.deepcopy(digitsA)
+        lineProduct = copy.deepcopy(productA)
 
 # Output resultant largest product as continuous int.
-stringA = ''
-for a in digitsA:
-    stringA += str(a)
-print(int(stringA))
+string = ''
+for digit in lineDigits:
+    string += str(digit)
+print(int(string))
