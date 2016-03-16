@@ -31,11 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2_even_fibonacci_numbers.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/2_even_fibonacci_numbers.py">
+      <file leaf-file-name="3_largest_prime_factor.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/3_largest_prime_factor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.2458234">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state vertical-scroll-proportion="1.1599045">
+              <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -58,6 +58,7 @@
       <list>
         <option value="$PROJECT_DIR$/1_Multiples_of_3_and_5/multiples_of_3_and_5.py" />
         <option value="$PROJECT_DIR$/.idea/2_even_fibonacci_numbers.py" />
+        <option value="$PROJECT_DIR$/3_largest_prime_factor.py" />
       </list>
     </option>
   </component>
@@ -124,7 +125,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.2_even_fibonacci_numbers">
+  <component name="RunManager" selected="Python.3_largest_prime_factor">
     <configuration default="false" name="multiples_of_3_and_5" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -155,6 +156,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="projectEuler" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/2_even_fibonacci_numbers.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="3_largest_prime_factor" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="projectEuler" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/3_largest_prime_factor.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -281,14 +299,16 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.multiples_of_3_and_5" />
       <item index="1" class="java.lang.String" itemvalue="Python.2_even_fibonacci_numbers" />
+      <item index="2" class="java.lang.String" itemvalue="Python.3_largest_prime_factor" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.2_even_fibonacci_numbers" />
-        <item index="1" class="java.lang.String" itemvalue="Python.multiples_of_3_and_5" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python.3_largest_prime_factor" />
+        <item index="1" class="java.lang.String" itemvalue="Python.2_even_fibonacci_numbers" />
+        <item index="2" class="java.lang.String" itemvalue="Python.multiples_of_3_and_5" />
       </list>
     </recent_temporary>
   </component>
@@ -344,6 +364,14 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/2_even_fibonacci_numbers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2458234">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/1_multiples_of_3_and_5.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -352,10 +380,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/2_even_fibonacci_numbers.py">
+    <entry file="file://$PROJECT_DIR$/3_largest_prime_factor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2458234">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state vertical-scroll-proportion="1.1599045">
+          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
           <folding />
         </state>
       </provider>
