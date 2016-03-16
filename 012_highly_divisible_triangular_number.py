@@ -22,6 +22,8 @@ We can see that 28 is the first triangle number to have over five divisors.
 What is the value of the first triangle number to have over five hundred divisors?
 """
 
+import numpy as np
+
 # Set minimum divisors.
 divisorMin = 500
 
@@ -39,10 +41,21 @@ while divisors <= divisorMin:
     counter += 1
     triangle += counter
 
+    # 1 is divisor, 0 is not divisor.
+    divisorBinary = np.zeros(triangle+1)
+    for i in range(triangle, 1, -1):
+        # Deal with largest factors.
+        if divisorBinary[i] == 0 and triangle % i == 0:
+            divisorBinary[i] = 1
+
+            # Deal with largest factors of factors.
+            for j in range(i, 1, -1):
+                if divisorBinary[j] == 0 and i % j == 0:
+                    divisorBinary[j] = 1
+
     divisors = 0
-    # Test for number of divisors.
-    for divisor in range(1, triangle+1):
-        if triangle % divisor == 0:
+    for b in np.nditer(divisorBinary):
+        if b == 1:
             divisors += 1
 
 # Divisors exceeded minimum number of divisors, output triangle number.
