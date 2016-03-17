@@ -32,24 +32,28 @@ def collatz(number):
         number1 = 3*number + 1
     return number1
 
+
+def collatzTerms(n):
+    """
+    Find number of terms through a recursive function.
+    :param number: int.
+    :return terms: int.
+    """
+    # Check if number has already been processed.
+    if str(n) not in collatzDict:
+        # Not processed, add to dictionary.
+        collatzDict[str(n)] = collatzTerms(collatz(n)) + 1
+    return collatzDict[str(n)]
+
 # Set largest number possible.
 numberMax = 999999
-collatzDict = {'1': None}
+collatzDict = {'1': 1}
 
 # Work down the chain, use dictionary.
 for startingNum in range(1, numberMax+1):
-    n = copy.deepcopy(startingNum)
-    notDict = True
-    while notDict:
-        # Check if number has already been processed.
-        if str(n) not in collatzDict:
-            # Not processed, add to dictionary.
-            collatzDict[str(n)] = collatz(n)
-            startingMax = copy.deepcopy(startingNum)
-            n = collatz(n)
-        else:
-            # Processed, break loop.
-            notDict = False
+    collatzTerms(startingNum)
+    if collatzDict[str(startingNum)] == max(collatzDict):
+        startingMax = copy.deepcopy(startingNum)
 
 # Output longest chain's starting number.
 print(startingMax)
