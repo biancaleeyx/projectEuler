@@ -46,3 +46,9 @@ for n in range(1, 1001):
     numberSum += numbers[n]
 
 print(numberSum)
+
+"""
+Ways to improve:
+Find sum of letters in 1 to 99.
+Multiply as necessary in hundreds. (One hundred and ..., two hundred and ..., ...)
+"""
