@@ -210,7 +210,7 @@ numberList = [37107287533902102798797998220837590246510135740250,
               53503534226472524250874054075591789781264330331690]
 
 
-def takeFirst(number, first=10):
+def takeFirst(number, first=11):
     """
     Take first digits of number.
     :param number: int. Number to look at.
@@ -235,11 +235,11 @@ def takeFirst(number, first=10):
     else:
         return number
 
-# Initialise first digits of product as variable.
-productFirst = 1
+# Initialise sum as variable.
+sumFirst = 1
 
 for number in numberList:
-    productFirst *= takeFirst(number)
-    productFirst = takeFirst(productFirst)
+    # Deal with an extra number to avoid problems with last digit.
+    sumFirst += takeFirst(number, first=first+1)
 
-print(productFirst)
+print(takeFirst(sumFirst, first=first))
