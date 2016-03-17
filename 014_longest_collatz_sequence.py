@@ -48,12 +48,14 @@ def collatzTerms(n):
 # Set largest number possible.
 numberMax = 999999
 collatzDict = {'1': 1}
+termsMax = 1
 
 # Work down the chain, use dictionary.
 for startingNum in range(1, numberMax+1):
     collatzTerms(startingNum)
-    if collatzDict[str(startingNum)] == max(collatzDict):
+    if collatzDict[str(startingNum)] > termsMax:
         startingMax = copy.deepcopy(startingNum)
+        termsMax = collatzDict[str(startingNum)]
 
 # Output longest chain's starting number.
 print(startingMax)
