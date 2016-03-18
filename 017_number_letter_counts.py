@@ -37,7 +37,6 @@ for n in range(1, 1001):
             numbers[n] = numbers[n - (n % 100)] + numbers[n % 100] + len(strings['and'])
         elif n == 1000:
             numbers[n] = len(strings[1000]) + numbers[n//1000]
-print(numbers)
 
 # Calculate sum of numbers.
 numberSum = 0
