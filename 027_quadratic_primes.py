@@ -24,56 +24,67 @@ of n, starting with n = 0.
 
 import numpy as np
 
-def primeList(numMax=1000, primes=np.array([2]), n=3):
+def primeList(numMax=1000, primes=None, initialMax=None):
 	"""
 	Create list of primes up to a largest value.
 	"""
-	while primes[-1] < numMax:
-	    # Initialise non-prime counter.
-	    counter = 0
+	# if initialMax is not None:
+	#	print("Expanding list of primes from {} to {}...".format(initialMax,numMax))
 
-	    for prime in primes:
-	        if n % prime == 0:
-	            counter += 1
-	            break
-	    # Add prime if no division occurred.
-	    if counter == 0:
-	        np.append(primes, n)
-	    # Parse next number.
-	    n += 1
+	if primes is None:
+		# Initialise np.array.
+		primes = np.arange(2, numMax)
+	else:
+		if initialMax is None:
+			initialMax = primes[-1]
+		np.concatenate((primes, np.arange(initialMax+1, numMax)))
+
+	for prime in np.nditer(primes):
+		if initialMax is None:
+			multiple = 2*prime
+		else:
+			multiple = (initialMax//prime + 1) * prime
+		while multiple < numMax:
+			np.delete(primes, np.where(primes==multiple))
+			multiple += prime
 	
-	print("List of primes to {} created.".format(numMax))
+	# print("List of primes to {} created.".format(numMax))
 	return primes
 
 maxNum = 1000
+initialMax = maxNum
 primes = primeList(numMax=maxNum)
 
 nMax = 0
 
 for a in range(1-maxNum, maxNum):
 	for b in np.nditer(primes):
-		n = 0
-		prime = True
-		while prime:
-			quadratic = n**2 + a*n + b
-			if quadratic <= 0:
-				prime = False
-			elif quadratic in primes:
-				n += 1
-			elif quadratic < primes[-1]:
-				prime = False
-			else:
-				# Update list of primes to the largest parsed number.
-				primes = primeList(numMax=quadratic, primes=primes, n=primes[-1])
-				prime = quadratic in primes
-				if prime:
+		if b < maxNum:
+			n = 0
+			prime = True
+			while prime:
+				quadratic = n**2 + a*n + b
+				if quadratic <= 0:
+					prime = False
+				elif quadratic in primes:
 					n += 1
+				elif quadratic < initialMax:
+					prime = False
+				else:
+					# Update list of primes to the largest parsed number.
+					primes = primeList(numMax=quadratic, primes=primes, initialMax=initialMax)
+					initialMax = quadratic
+					prime = quadratic in primes
+					if prime:
+						n += 1
 
-		# Update max variables if larger n primes reached.
-		if n > nMax:
-			nMax = n
-			aMax = a
-			bMax = b
-			print("Current largest n: {}.".format(nMax))
+			# Update max variables if larger n primes reached.
+			if n > nMax:
+				nMax = n
+				aMax = a
+				bMax = b
+				print("Current largest n is {} with a={} and b={}.".format(nMax, aMax, bMax))
+		else:
+			break
 
-print("Product of coefficients of quadratic equation producing largest n of {}: {}.".format(nMax, a*b))
+print("Product of coefficients of quadratic equation producing largest n of {}: {}.".format(nMax, aMax*bMax))
