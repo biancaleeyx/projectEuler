@@ -70,15 +70,9 @@ for lineNum in range(1, linesNum+1):
 		counter += 1
 	triangleList.append(lineList)
 
-# Parse through all routes, only remember by comparison.
-total = triangleList[0][0]
-totalMax = 0
-index = 0
-# Parse through lines.
-for lineNum in range(1, linesNum):
-	# Parse through numbers in lines.
-	for index in range(index, index+2)
-		number = triangleList[lineNum][index]
-		total += number
-		# Pick next number in index.
-		# doesn't work cause 'total' is not reset for each combination.
+# Start from last line. Choose between side to side numbers (keep larger). Decrease elements linearly by summation.
+for lineNum in range(linesNum-1, 0, -1):
+  for k in range(len(triangleList[lineNum])-1):
+    triangleList[lineNum-1][k] += max(triangleList[lineNum][k], triangleList[lineNum][k+1])
+
+print(triangleList[0][0])
