@@ -74,9 +74,10 @@ for a in range(1-maxNum, maxNum):
 					# Update list of primes to the largest parsed number.
 					primes = primeList(numMax=quadratic, primes=primes, initialMax=initialMax)
 					initialMax = quadratic
-					prime = quadratic in primes
-					if prime:
+					if quadratic in primes:
 						n += 1
+					else:
+						prime = False
 
 			# Update max variables if larger n primes reached.
 			if n > nMax:
