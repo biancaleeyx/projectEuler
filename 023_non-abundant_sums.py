@@ -49,12 +49,14 @@ def sumDivisors(number):
 
 	# Calculate sum of divisors = product of sum of primes in powers (starting from 0).
 	divisorSum = 1
+
 	for prime in primeDict:
 		count = primeDict[prime]
 		powerSum = 0
 		for power in range(count+1):
 			powerSum += prime**power
 		divisorSum *= powerSum
+
 	# Exclude original number.
 	divisorSum -= number
 
@@ -72,18 +74,21 @@ for number in range(1, maxNum):
 		abundants.append(number)
 abundants = np.array(abundants)
 
+print("List of abundant numbers created.")
+
 integerSum = 0
-for number in range(abundants[0]*2, maxNum+1):
+for number in range(maxNum+1):
 	abundantSum = False
 	for abundant in np.nditer(abundants):
-		if abundant <= number - abundants[0]:
-			if number - abundant in abundants:
+		if abundant <= number-abundants[0]:
+			if number-abundant in abundants:
 				abundantSum = True
 				break
 		else:
 			break
 	if not abundantSum:
 		integerSum += number
+		print("{} is a non-abundant sum. New total: {}.".format(str(number), str(integerSum)))
 
 print("Sum of positive integers which are non-abundant sums is {}.".format(integerSum))
 print(__file__ + " has finished running.")
