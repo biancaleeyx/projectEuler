@@ -28,8 +28,6 @@ def primeList(numMax=1000, primes=None, initialMax=None):
 	"""
 	Create list of primes up to a largest value.
 	"""
-	# if initialMax is not None:
-	#	print("Expanding list of primes from {} to {}...".format(initialMax,numMax))
 
 	if primes is None:
 		# Initialise np.array.
@@ -45,26 +43,29 @@ def primeList(numMax=1000, primes=None, initialMax=None):
 		else:
 			multiple = (initialMax//prime + 1) * prime
 		while multiple < numMax:
-			np.delete(primes, np.where(primes==multiple))
+			primes = np.delete(primes, np.where(primes==multiple))
 			multiple += prime
-	
-	# print("List of primes to {} created.".format(numMax))
+
 	return primes
 
 maxNum = 1000
 initialMax = maxNum
 primes = primeList(numMax=maxNum)
 
+# Initiate variables.
 nMax = 0
 
 for a in range(1-maxNum, maxNum):
+	# b can only be a prime number since quadratic = b when n = 0.
 	for b in np.nditer(primes):
 		if b < maxNum:
 			n = 0
+
+			# Set boolean variable as while loop condition.
 			prime = True
 			while prime:
 				quadratic = n**2 + a*n + b
-				if quadratic <= 0:
+				if quadratic <= primes[0]:
 					prime = False
 				elif quadratic in primes:
 					n += 1
@@ -87,5 +88,7 @@ for a in range(1-maxNum, maxNum):
 				print("Current largest n is {} with a={} and b={}.".format(nMax, aMax, bMax))
 		else:
 			break
+
+print("primes", primes)
 
 print("Product of coefficients of quadratic equation producing largest n of {}: {}.".format(nMax, aMax*bMax))
