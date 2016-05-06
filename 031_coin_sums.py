@@ -47,7 +47,7 @@ while counter <= len(combinationList)-1:
 			if combination not in combinationList:
 				combinationList.append(combination)
 				coinString, countString = np.unique(np.array(combination), return_counts=True)
-				print("Combination #{}: {} cents * {}, respectively.".format(counter+1, coinString, countString))
+				print("Combination #{}: {} cents * {}, respectively.".format(len(combinationList), coinString, countString))
 	counter += 1
 
 print("Number of ways to form £2: {}.".format(len(combinationList)))
