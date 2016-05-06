@@ -25,30 +25,29 @@ coins = np.array([1, 2, 5, 10, 20, 50, 100, 200])
 combinationList = [[total]]
 counter = 0
 
-while [1]*total not in combinationList:
-	combination = combinationList[counter]
-	print("Processing combination of {}...".format(combination))
-	for coin in set(combination):
+while counter <= len(combinationList)-1:
+	for coin in set(combinationList[counter]):
 		if coin == 1:
 			continue
 		else:
-			combinationTemp = copy.deepcopy(combination)
-			combinationTemp.remove(coin)
-			combinationTemp.append(coins[np.where(coins==coin)[0][0]-1])
+			combination = copy.deepcopy(combinationList[counter])
+			combination.remove(coin)
+			combination.append(coins[np.where(coins==coin)[0][0]-1])
 
-			while sum(combinationTemp) < total:
+			while sum(combination) < total:
 				for coinType in coins[::-1]:
-					if coinType <= total - sum(combinationTemp):
-						combinationTemp.append(coinType)
+					if coinType <= total - sum(combination):
+						combination.append(coinType)
 						break
 
-			combinationTemp.sort()
-			if sum(combinationTemp) != total:
+			combination.sort()
+			if sum(combination) != total:
 				raise ValueError("Sum of combination is not equivalent to the desired total.")
 
-			if combinationTemp not in combinationList:
-				combinationList.append(combinationTemp)
-				print("New combination: {}.".format(combinationTemp))
+			if combination not in combinationList:
+				combinationList.append(combination)
+				coinString, countString = np.unique(np.array(combination), return_counts=True)
+				print("Combination #{}: {} cents * {}, respectively.".format(counter+1, coinString, countString))
 	counter += 1
 
 print("Number of ways to form £2: {}.".format(len(combinationList)))
