@@ -30,24 +30,26 @@ while counter <= len(combinationList)-1:
 		if coin == 1:
 			continue
 		else:
-			combination = copy.deepcopy(combinationList[counter])
-			combination.remove(coin)
-			combination.append(coins[np.where(coins==coin)[0][0]-1])
+			combinationTemp = copy.deepcopy(combinationList[counter])
+			combinationTemp.remove(coin)
+			for coinType in coins[:np.where(coins==coin)[0][0]][::-1]:
+				combination = copy.deepcopy(combinationTemp)
+				combination.append(coinType)
 
-			while sum(combination) < total:
-				for coinType in coins[::-1]:
-					if coinType <= total - sum(combination):
-						combination.append(coinType)
-						break
+				while sum(combination) < total:
+					for coinType in coins[:np.where(coins==coin)[0][0]][::-1]:
+						if coinType <= total - sum(combination):
+							combination.append(coinType)
+							break
 
-			combination.sort()
-			if sum(combination) != total:
-				raise ValueError("Sum of combination is not equivalent to the desired total.")
+				combination.sort()
+				if sum(combination) != total:
+					raise ValueError("Sum of combination is not equivalent to the desired total.")
 
-			if combination not in combinationList:
-				combinationList.append(combination)
-				coinString, countString = np.unique(np.array(combination), return_counts=True)
-				print("Combination #{}: {} cents * {}, respectively.".format(len(combinationList), coinString, countString))
+				if combination not in combinationList:
+					combinationList.append(combination)
+					coinString, countString = np.unique(np.array(combination), return_counts=True)
+					print("Combination #{}: {} cents * {}, respectively.".format(len(combinationList), coinString, countString))
 	counter += 1
 
 print("Number of ways to form £2: {}.".format(len(combinationList)))
