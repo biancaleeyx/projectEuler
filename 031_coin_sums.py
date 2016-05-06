@@ -13,39 +13,42 @@ How many different ways can £2 be made using any number of coins?
 """
 
 import numpy as np
+import copy
 
 # Set sum to be made, using whole numbers i.e. pennies.
 total = 200
 
 # Define possible set.
 coins = np.array([1, 2, 5, 10, 20, 50, 100, 200])
-coinsList = []
 
-# Create dictionary of number of ways to create amounts for each coin.
-coinsDict = {1: 1}
+# Find list of combinations, unique.
+combinationList = [[total]]
+counter = 0
 
-# Find number of ways for each coin, building up from the smallest.
-for i in range(1, len(coins)):
-	coinLarger = coins[i]
-	coinSmaller = coins[i-1]
-	coinList = []
-	while coinLarger != 0:
-		num = coinLarger//coinSmaller
-		coinLarger = coinLarger%coinSmaller
-		coinSmaller = coins[np.where(coins==coinSmaller)[0][0]-1]
-		coinList.append(num)
-	coinsList.append(coinList)
-	print("Simplest combination for coin of value {} is {}.".format(coins[i], coinList))
+while [1]*total not in combinationList:
+	combination = combinationList[counter]
+	print("Processing combination of {}...".format(combination))
+	for coin in set(combination):
+		if coin == 1:
+			continue
+		else:
+			combinationTemp = copy.deepcopy(combination)
+			combinationTemp.remove(coin)
+			combinationTemp.append(coins[np.where(coins==coin)[0][0]-1])
 
-	# Calculate combination numbers.
-	coin = coins[i]
-	coinsDict[coin] = 1
-	
-	coinsType = (coins[i-len(coinList):i])[::-1]
-	print("Number of coins for each type of coin, {}, is {} respectively.".format(coinsType, coinList))
+			while sum(combinationTemp) < total:
+				for coinType in coins[::-1]:
+					if coinType <= total - sum(combinationTemp):
+						combinationTemp.append(coinType)
+						break
 
-	for coinType, count in zip(coinsType, coinList):
-		coinsDict[coin] += np.math.factorial(count*coinsDict[coinType])/(np.math.factorial(count)*np.math.factorial(count*(coinsDict[coinType]-1)))
+			combinationTemp.sort()
+			if sum(combinationTemp) != total:
+				raise ValueError("Sum of combination is not equivalent to the desired total.")
 
-	print("The number of combinations for coin of value {} is {}.".format(coin, int(coinsDict[coin])))
-	print()
+			if combinationTemp not in combinationList:
+				combinationList.append(combinationTemp)
+				print("New combination: {}.".format(combinationTemp))
+	counter += 1
+
+print("Number of ways to form £2: {}.".format(len(combinationList)))
