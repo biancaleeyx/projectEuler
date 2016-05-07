@@ -52,6 +52,9 @@ print("Generation of combination list complete. \nNow calculating number of ways
 
 ways = 0
 for combination in combinationList:
+	waySum = 0
+	for coinType, coinNum in zip(coins, combination):
+		waySum += coinType*coinNum
 	if sum(combination) == total:
 		ways += 1
 
