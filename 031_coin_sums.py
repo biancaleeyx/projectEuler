@@ -14,6 +14,11 @@ How many different ways can £2 be made using any number of coins?
 
 import numpy as np
 import copy
+import time
+
+timeStart = time.clock()
+
+print("{} is running...".format(__file__))
 
 # Set sum to be made, using whole numbers i.e. pennies.
 total = 200
@@ -22,34 +27,31 @@ total = 200
 coins = np.array([1, 2, 5, 10, 20, 50, 100, 200])
 
 # Find list of combinations, unique.
-combinationList = [[total]]
-counter = 0
+combinationList = []
 
-while counter <= len(combinationList)-1:
-	for coin in set(combinationList[counter]):
-		if coin == 1:
-			continue
-		else:
-			combinationTemp = copy.deepcopy(combinationList[counter])
-			combinationTemp.remove(coin)
-			for coinType in coins[:np.where(coins==coin)[0][0]][::-1]:
-				combination = copy.deepcopy(combinationTemp)
-				combination.append(coinType)
+# Create list of maximum number of coins of each type.
+coinsMax = []
+for coin in coins:
+	coinsMax.append(total/coin)
+coinsMax = np.array(coinsMax)
+print("Variables set.")
 
-				while sum(combination) < total:
-					for coinType in coins[:np.where(coins==coin)[0][0]][::-1]:
-						if coinType <= total - sum(combination):
-							combination.append(coinType)
-							break
+# Create brute force combination of numbers of coins of each type.
+for coinType, coinMax in zip(coins, coinsMax):
+	for combination in combinationList:
+		for coinNum in range(coinMax+1):
+			combinationTemp = copy.deepcopy(combination)
+			combinationTemp.append(coinNum)
+			combinationList.append(combinationTemp)
+		combinationList.delete(combination)
+print("Generation of combination list complete. \nNow calculating number of ways...")
 
-				combination.sort()
-				if sum(combination) != total:
-					raise ValueError("Sum of combination is not equivalent to the desired total.")
+ways = 0
+for combination in combinationList:
+	if sum(combination) == total:
+		ways += 1
 
-				if combination not in combinationList:
-					combinationList.append(combination)
-					coinString, countString = np.unique(np.array(combination), return_counts=True)
-					print("Combination #{}: {} cents * {}, respectively.".format(len(combinationList), coinString, countString))
-	counter += 1
+print("Number of ways to form £2: {}.".format(ways))
 
-print("Number of ways to form £2: {}.".format(len(combinationList)))
+timeEnd = time.clock()
+print("Time taken: {} minutes, {} seconds.".format((timeEnd-timeStart)//60, (timeEnd-timeStart)%60))
