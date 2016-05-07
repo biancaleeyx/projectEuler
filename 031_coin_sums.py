@@ -55,7 +55,7 @@ for combination in combinationList:
 	waySum = 0
 	for coinType, coinNum in zip(coins, combination):
 		waySum += coinType*coinNum
-	if sum(combination) == total:
+	if waySum == total:
 		ways += 1
 
 print("Number of ways to form £2: {}.".format(ways))
