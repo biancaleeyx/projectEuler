@@ -36,26 +36,35 @@ for coin in coins:
 coinsMax = np.array(coinsMax)
 print("Variables set.")
 
+def summation(combination, coins=coins):
+	"""
+	;params combination: list of integers
+	"""
+	waySum = 0
+	for coinType, coinNum in zip(coins[:len(combination)], combination):
+		waySum += coinType*coinNum
+	return waySum
+
 # Create brute force combination of numbers of coins of each type.
 for coinType, coinMax in zip(coins, coinsMax):
 	print("Processing coin of value {}...".format(coinType))
-	for combination in combinationList:
+	combinationListTemp = copy.deepcopy(combinationList)
+	for combination in combinationListTemp:
 		if len(combination) > np.where(coins==coinType)[0][0]:
 			break
 		else:
 			for coinNum in range(coinMax+1):
 				combinationTemp = copy.deepcopy(combination)
 				combinationTemp.append(coinNum)
+				if summation(combinationTemp) > total:
+					break
 				combinationList.append(combinationTemp)
 			combinationList.remove(combination)
 print("Generation of combination list complete. \nNow calculating number of ways...")
 
 ways = 0
 for combination in combinationList:
-	waySum = 0
-	for coinType, coinNum in zip(coins, combination):
-		waySum += coinType*coinNum
-	if waySum == total:
+	if summation(combination) == total:
 		ways += 1
 
 print("Number of ways to form £2: {}.".format(ways))
