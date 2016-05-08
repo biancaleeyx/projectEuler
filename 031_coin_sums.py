@@ -70,4 +70,4 @@ for combination in combinationList:
 print("Number of ways to form £2: {}.".format(ways))
 
 timeEnd = time.clock()
-print("Time taken: {:0.0f} minutes, {:0.0f} seconds.".format((timeEnd-timeStart)//60, (timeEnd-timeStart)%60))
+print("Time taken: {:0.0f} hours, {:0.0f} minutes, and {:0.0f} seconds.".format((timeEnd-timeStart)//3600, ((timeEnd-timeStart)%3600)//60, (timeEnd-timeStart)%60))
