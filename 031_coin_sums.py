@@ -1,73 +1,32 @@
 """
 Project Euler Problem 31: Coin sums
 
-In England the currency is made up of pound, £, and pence, p, and there are eight coins in general circulation:
+In England the currency is made up of pound P and pence, p, and there are eight coins in general circulation:
 
-    1p, 2p, 5p, 10p, 20p, 50p, £1 (100p) and £2 (200p).
+    1p, 2p, 5p, 10p, 20p, 50p, P1 (100p) and P2 (200p).
 
-It is possible to make £2 in the following way:
+It is possible to make P2 in the following way:
 
-    1×£1 + 1×50p + 2×20p + 1×5p + 1×2p + 3×1p
+	1xP1 + 1x50p + 2x20p + 1x5p + 1x2p + 3x1p
 
-How many different ways can £2 be made using any number of coins?
+How many different ways can P2 be made using any number of coins?
 """
 
 import numpy as np
 import copy
-import time
+import math
 
-timeStart = time.clock()
+# Set sum to be made in terms of p
+total=200
 
-print("{} is running...".format(__file__))
+# Possible coins
+coins=[1, 2, 5, 10, 20, 50, 100, 200]
 
-# Set sum to be made, using whole numbers i.e. pennies.
-total = 200
+def ways(coins, total):
+    if len(coins) == 0 or total<0:
+        return 0
+    if total == 0:
+        return 1
+    return ways(coins[:-1], total) + ways(coins, total-coins[-1])
 
-# Define possible set.
-coins = np.array([1, 2, 5, 10, 20, 50, 100, 200])
-
-# Find list of combinations, unique.
-combinationList = [[]]
-
-# Create list of maximum number of coins of each type.
-coinsMax = []
-for coin in coins:
-	coinsMax.append(total//coin)
-coinsMax = np.array(coinsMax)
-print("Variables set.")
-
-def summation(combination, coins=coins):
-	"""
-	;params combination: list of integers
-	"""
-	waySum = 0
-	for coinType, coinNum in zip(coins[:len(combination)], combination):
-		waySum += coinType*coinNum
-	return waySum
-
-# Create brute force combination of numbers of coins of each type.
-for coinType, coinMax in zip(coins, coinsMax):
-	print("Processing coin of value {}...".format(coinType))
-	combinationListTemp = copy.deepcopy(combinationList)
-	for combination in combinationListTemp:
-		if len(combination) > np.where(coins==coinType)[0][0]:
-			break
-		else:
-			for coinNum in range(coinMax+1):
-				combinationTemp = copy.deepcopy(combination)
-				combinationTemp.append(coinNum)
-				if summation(combinationTemp) > total:
-					break
-				combinationList.append(combinationTemp)
-			combinationList.remove(combination)
-print("Generation of combination list complete. \nNow calculating number of ways...")
-
-ways = 0
-for combination in combinationList:
-	if summation(combination) == total:
-		ways += 1
-
-print("Number of ways to form £2: {}.".format(ways))
-
-timeEnd = time.clock()
-print("Time taken: {:0.0f} hours, {:0.0f} minutes, and {:0.0f} seconds.".format((timeEnd-timeStart)//3600, ((timeEnd-timeStart)%3600)//60, (timeEnd-timeStart)%60))
+print(ways(coins, total))
