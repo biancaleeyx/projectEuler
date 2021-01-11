@@ -45,22 +45,10 @@ eqns :: String -> [Integer]
 eqns numStr = [c | (a,b,c) <- (eqn numStr), a * b == c]
 
 
-mergePairs :: Ord a => [[a]] -> [[a]]
-mergePairs [] = []
-mergePairs (x:[]) = [x]
-mergePairs ((!x):(!y):end) = mergePairs ((List.intersect x y):(mergePairs end)) 
-                       -- I'm not sure what is happening here. Does the 2nd mergePairs need to be there?
--- basically for list of lists [[a],[b],[c],[d]], this tries to do [[a,b],[c,d]] before merging all together
--- second mergepairs is to pairwise combine the rest i think
-
--- the problem here is that (assuming that it is logically sound in the first place), it's going to be slow and expensive memory-wise. I'll explain tonight.
-
 
 merge :: Ord a => [[a]] -> [a]
-merge [] = []
-merge x = head $ mergePairs x
+merge = List.foldl1' (\x y -> List.nub $ x ++ y)
 
--- given permuted list 123456789
 fx :: Integer
 fx = sum . merge . map eqns $ perm
 
